@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../shared/services/auth.service';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -16,14 +15,14 @@ import { RouterModule } from '@angular/router';
 export class SignupComponent {
   signupForm: FormGroup;
   backendErrors: string[] = [];
+  loading = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.signupForm = this.fb.group({
-      // id not required as a form control unless you need it
       userName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rePassword: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -34,9 +33,25 @@ export class SignupComponent {
   }
 
   onSubmit(): void {
+    // reset errors each submit
     this.backendErrors = [];
-    if (this.signupForm.valid && !this.passwordMismatch) {
-      const payload = {
+
+    // mark touched to show validation errors
+    if (this.signupForm.invalid) {
+      this.signupForm.markAllAsTouched();
+      if (this.passwordMismatch) {
+        this.backendErrors.push('Passwords do not match.');
+      }
+      return;
+    }
+
+    if (this.passwordMismatch) {
+      this.backendErrors.push('Passwords do not match.');
+      return;
+    }
+
+    // build a clean payload (adjust keys to match your backend)
+   const payload = {
         userName: this.signupForm.value.userName,
         password: this.signupForm.value.password,
         email: this.signupForm.value.email,
@@ -44,35 +59,42 @@ export class SignupComponent {
         name: this.signupForm.value.userName,
       };
 
-      this.authService.signup(payload).subscribe({
-        next: () => {
-          this.router.navigate(['/auth/login']);
+    console.log('Signup payload:', payload);
+
+    this.loading = true;
+
+    this.authService.signup(payload)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          console.log('Signup success:', res);
+          this.loading = false;
+          // show success toast if you have
+          this.router.navigate(['/login']);
         },
         error: (err) => {
-          // normalize backend error messages
+          console.error('Signup error (component):', err);
+          this.loading = false;
+          // parse error payload robustly
           if (err?.error) {
-            if (Array.isArray(err.error)) {
-              this.backendErrors = err.error;
-            } else if (typeof err.error === 'string') {
-              this.backendErrors = [err.error];
-            } else if (err.error.errors) {
-              this.backendErrors = Object.values(err.error.errors);
+            const body = err.error;
+            // ModelState style { errors: { Field: ["msg"] } }
+            if (body.errors && typeof body.errors === 'object') {
+              // this.backendErrors = Object.values(body.errors).flat();
+            } else if (Array.isArray(body)) {
+              this.backendErrors = body;
+            } else if (typeof body === 'string') {
+              this.backendErrors = [body];
+            } else if (body.message) {
+              this.backendErrors = [body.message];
             } else {
-              this.backendErrors = [JSON.stringify(err.error)];
+              // fallback: stringify
+              this.backendErrors = [JSON.stringify(body)];
             }
           } else {
-            this.backendErrors = ['Signup failed. Please try again.'];
+            this.backendErrors = [err?.message || 'Sign up failed'];
           }
-        },
+        }
       });
-    } else {
-      // mark all controls as touched to show validations
-      Object.values(this.signupForm.controls).forEach((c) => c.markAsTouched());
-      if (this.passwordMismatch) {
-        this.backendErrors = ['Passwords do not match.'];
-      } else {
-        this.backendErrors = ['Form is not valid'];
-      }
-    }
   }
 }
