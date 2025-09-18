@@ -4,12 +4,6 @@
 @import '../../styles/mixins';
 
 
-h1 {
-  text-align: center;
-  font-size: 15em;
-
-  @include boxShadow(rgba(67, 155, 251), 50);
-}
 
 body {
   background-color: #007aff;
