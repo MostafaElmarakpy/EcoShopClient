@@ -4,12 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { IProduct } from '../../models/product';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:5234/Products'; // Adjust the URL as needed
+  private apiUrl = environment.apiUrl;
   private productDeletionSource = new BehaviorSubject<number | null>(null);
   productDeletion$ = this.productDeletionSource.asObservable();
 
