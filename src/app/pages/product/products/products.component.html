@@ -1,0 +1,23 @@
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4 display-4 text-primary">Explore Our Courses</h1>
+    <p class="text-center text-muted mb-4">
+        Discover our comprehensive and engaging courses designed to boost your skills.
+    </p>
+    <div class="row">
+        @for (product of products; track $index) {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img [src]="product.imagePath" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-muted">{{ product.category }}</p>
+                    <p class="card-text text-muted">{{ product.price | currency }}</p>
+
+                    <button class="btn btn-primary mt-auto" (click)="viewDetails(product.id)">View Details</button>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+</div>

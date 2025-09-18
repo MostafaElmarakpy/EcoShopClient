@@ -1,0 +1,45 @@
+<!-- detail-product.component.html -->
+@if (product) {
+  <div class="product-detail">
+    <h2>{{ product!.name }}</h2>
+
+    <img
+      [src]="getImageUrl(product!.imagePath)"
+      [src]="getImageUrl(product!.imagePath)"
+      alt="{{ product!.name }}"
+      class="product-image"
+    />
+
+    <p>Category: {{ product!.category }}</p>
+    <p>Price: {{ product!.price | currency }}</p>
+
+    <!-- Edit/Delete Buttons -->
+    <div class="actions">
+      <button (click)="openEditModal()">Edit</button>
+      <button (click)="confirmDelete()">Delete</button>
+    </div>
+
+    <!-- Edit Modal (simple) -->
+    @if (showEditModal) {
+      <div class="modal">
+        <form [formGroup]="editForm" (ngSubmit)="updateProduct() ">
+          <input formControlName="name" placeholder="Name" />
+          <input formControlName="price" type="number" placeholder="Price" />
+          <!-- Add other fields as needed -->
+          <button type="submit" [disabled]="editForm.invalid">Save</button>
+          <button type="button" (click)="closeEditModal()">Cancel</button>
+        </form>
+      </div>
+    }
+  </div>
+} @else {
+  @if (loading) {
+    <p>Loading...</p>
+  } @else {
+    <!-- <p *ngIf="error">{{ error }}</p> -->
+     <!-- without *ngif error -->
+      <p>{{ error }}</p>
+
+
+  }
+}
