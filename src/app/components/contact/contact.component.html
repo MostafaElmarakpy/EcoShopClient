@@ -1,0 +1,56 @@
+
+<div class="container contact-us-container">
+    <h2>Contact Us</h2>
+    <p class="contact-subtitle">We'd love to hear from you! Reach out to us using the form below or through any of our contact methods.</p>
+    
+    <div class="row">
+        <!-- Contact Form -->
+        <div class="col-lg-6 mb-4">
+            <form  #contactForm="ngForm" class="contact-form">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" ngModel required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" ngModel required email>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-control" ngModel required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" rows="5" class="form-control" ngModel required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Send Message</button>
+            </form>
+
+        <!-- Contact Details -->
+        <div class="col-lg-6">
+            <div class="contact-details">
+                <div class="contact-info">
+                    <h4>Address</h4>
+                    <p>Contact by email</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Phone</h4>
+                    <p>+1 234 567 890 <small>(some random number)</small></p>
+                </div>
+                <div class="contact-info">
+                    <h4>Email</h4>
+                    <p>learnsmartcoding&#64;gmail.com</p>
+                </div>
+                <div class="social-media">
+                    <h4>Follow Us</h4>
+                    <a href="https://www.youtube.com/@learnsmartcoding" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    <a href="https://x.com/lsc_karthik" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/learnsmartcoding/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/learnsmartcoding/" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/learnsmartcoding" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
