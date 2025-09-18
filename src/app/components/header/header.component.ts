@@ -1,42 +1,33 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { Subject } from 'rxjs';
-import { ProductService } from '../../shared/services/product.service';
-
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
- imports: [CommonModule, FormsModule, RouterModule],
+  standalone: true,               
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  searchTerm: string = '';
 
-  constructor(
-    // private productService: ProductService,
-    private router: Router,
-    // private authService: any,
-    // @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
-    // private authService: MsalService,
-    // private msalBroadcastService: MsalBroadcastService,
-    // private loginService: LoginService,
-    
-  ) {}
-  
-  isIframe = false;
-  loginDisplay = false;
-  isAdmin = false;
-  private readonly _destroying$ = new Subject<void>();
-  // claims: Claim[] = [];
-  profilePictureUrl = '';
+  constructor(public authService: AuthService, private router: Router) {}
 
-  loginPopup() {
-    
+  onSearch() {
+    const q = this.searchTerm?.trim();
+    if (q) {
+      this.router.navigate(['/products'], { queryParams: { search: q } });
+    } else {
+      this.router.navigate(['/products']);
     }
+    this.searchTerm = '';
+  }
 
-   logout() {
- 
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
