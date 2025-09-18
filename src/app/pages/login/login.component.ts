@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormControl ,FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent  implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginErr = 'Invalid email and or password.';
   backendErrors: string[] = [];
-  baseUrl: string = 'https://localhost:5001/api/auth/';
+    loading : boolean = false;
+  baseUrl: string = environment.apiUrl;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -25,6 +27,8 @@ export class LoginComponent  implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+
+
   ngOnInit(): void {
     if (this.authService.hasToken()) {
       this.router.navigate(['/home']);
@@ -52,4 +56,5 @@ export class LoginComponent  implements OnInit {
       );
     }
   }
+
 }
