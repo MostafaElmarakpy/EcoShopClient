@@ -24,15 +24,26 @@ export class ProductService {
       })
     );
   }
+  getProductById(id: string): Observable<IProduct> {
+  return this.http.get<IProduct>(`${environment.apiUrl}/products/${id}`);
+}
 
-  getProductById(id: number): Observable<IProduct> {
-    return this.http.get<IProduct>(`${this.apiUrl}/${id}`).pipe(
-      catchError(error => {
-        console.error(`Error fetching product with id ${id}:`, error);
-        return throwError(() => new Error(`Failed to fetch product with id ${id}`));
-      })
-    );
-  }
+updateProduct(id: string, product: Partial<IProduct>): Observable<IProduct> {
+  return this.http.put<IProduct>(`${environment.apiUrl}/products/${id}`, product);
+}
+
+deleteProduct(id: string): Observable<void> {
+  return this.http.delete<void>(`${environment.apiUrl}/products/${id}`);
+}
+
+  // getProductById(id: number): Observable<IProduct> {
+  //   return this.http.get<IProduct>(`${this.apiUrl}/${id}`).pipe(
+  //     catchError(error => {
+  //       console.error(`Error fetching product with id ${id}:`, error);
+  //       return throwError(() => new Error(`Failed to fetch product with id ${id}`));
+  //     })
+  //   );
+  // }
 
   createProductWithImage(formData: FormData): Observable<IProduct> { // تحديد نوع الاستجابة
     for (let [key, value] of formData.entries()) {
@@ -55,14 +66,14 @@ export class ProductService {
     );
   }
 
-  deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
-      catchError(error => {
-        console.error(`Error deleting product with id ${id}:`, error);
-        return throwError(() => new Error(`Failed to delete product with id ${id}`));
-      })
-    );
-  }
+  // deleteProduct(id: number): Observable<void> {
+  //   return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+  //     catchError(error => {
+  //       console.error(`Error deleting product with id ${id}:`, error);
+  //       return throwError(() => new Error(`Failed to delete product with id ${id}`));
+  //     })
+  //   );
+  // }
 
   notifyProductDeletion(productId: number) {
     this.productDeletionSource.next(productId);
