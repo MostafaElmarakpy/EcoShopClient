@@ -50,8 +50,9 @@ export const routes: Routes = [
   {
     path: 'contact',
     loadComponent: () => import('./components/contact/contact.component').then(c => c.ContactComponent),
-    // Public
   },
 
-    { path: '**', redirectTo: 'home' },
+   
+
+  { path: '**', redirectTo: 'home' },
 ];
