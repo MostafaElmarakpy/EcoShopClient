@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { IUser, ILogin, IRegister } from '../../models/User';
 import { environment } from '../../../environments/environment';
+import { IUser ,ILogin, IRegister } from '../../models/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   private apiUrl = environment.apiUrl.replace(/\/$/, ''); // remove trailing slash
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
   private userSubject = new BehaviorSubject<IUser | null>(this.readUserFromStorage());
   user$ = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private readUserFromStorage(): IUser | null {
     try {
@@ -29,10 +30,12 @@ export class AuthService {
     return `${this.apiUrl}/${path.replace(/^\//, '')}`;
   }
 
+
+
   refreshToken(): Observable<IUser> {
     const refreshToken = this.userSubject.value?.refreshToken;
     if (!refreshToken) return throwError(() => new Error('No refresh token'));
-    return this.http.post<IUser>(this.buildUrl('auth/refresh-token'), { token: refreshToken }).pipe(
+    return this.http.post<IUser>(this.buildUrl('Auth/refresh-token'), { token: refreshToken }).pipe(
       tap(user => {
         localStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
@@ -41,49 +44,97 @@ export class AuthService {
     );
   }
 
-  login(loginUser: ILogin): Observable<IUser> {
-    // adjust path to your backend route
-    return this.http.post<IUser>(this.buildUrl('auth/login'), loginUser).pipe(
-      tap(response => console.log('Login response:', response)),
-      catchError(this.formatErrors)
-    );
-  }
+login(loginUser: ILogin): Observable<IUser> {
+   const body = { email: loginUser.email, password: loginUser.password };
+  const loginUrl = this.buildUrl('auth/login'); 
+  return this.http.post<IUser>(loginUrl, body).pipe(
+    tap(response => {
+      // store user details and jwt token in local storage
+      try {
+        localStorage.setItem('user', JSON.stringify(response));
+      } catch {}
+      this.userSubject.next(response);
+      this.isAuthenticatedSubject.next(!!response?.token);
+    }),
+    catchError(this.formatErrors)
+  );
+}
 
-  signup(registerData: IRegister): Observable<IUser> {
-    console.log('Sending signup request with:', registerData);
-    // adjust path to your backend route for register
-    const signupUrl = this.buildUrl('api/users/auth/register'); 
-    return this.http.post<IUser>(signupUrl, registerData).pipe(
-      tap((response) => {
-        console.log('Signup response:', response);
-      }),
-      catchError(this.formatErrors)
-    );
-  }
+signup(registerData: IRegister): Observable<IUser> {
+  console.log('Sending signup request with:', registerData);
+  const body = {
+    userName: (registerData as any).name ?? registerData.name,
+    email: registerData.email,
+    password: registerData.password,
+    confirmPassword: (registerData as any).rePassword ?? registerData.rePassword ?? registerData.password
+  };
+  const signupUrl = this.buildUrl('auth/register'); 
+  return this.http.post<IUser>(signupUrl, body).pipe(
+    
+    tap(response => 
+      {
+        // store user details and jwt token in local storage
+        try {
+          localStorage.setItem('user', JSON.stringify(response));
+        } catch {}
+        this.userSubject.next(response);
+        this.isAuthenticatedSubject.next(!!response?.token);
+      }
+
+    ),
+    catchError(this.formatErrors)
+  );
+}
 
   logout(): void {
-    localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.isAuthenticatedSubject.next(false);
   }
 
-  getToken(): string | null {
+  hasToken(): boolean {
+    const user = this.readUserFromStorage();
+    return !!user?.token;
+  }
+
+
+  getAccessToken(): string | undefined {
+    const user = this.readUserFromStorage();
+   return user?.token;
+  }
+
+   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  hasToken(): boolean {
-    const token = this.getToken();
-    return !!token;
+
+  storeTokens(response: { accessToken: string, refreshToken: string }) {
+    localStorage.setItem('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
+  }
+  isAuthenticated(): Observable<boolean> {
+   return this.isAuthenticatedSubject.asObservable();
   }
 
-  get isAuthenticated$(): Observable<boolean> {
-    return this.isAuthenticatedSubject.asObservable();
-  }
 
-  // preserve original HttpErrorResponse so component can inspect error body / status
-  private formatErrors = (error: HttpErrorResponse) => {
-    console.error('API error:', error);
-    return throwError(() => error);
-  };
+
+  private formatErrors(error: HttpErrorResponse) {
+    console.error('API Error:', error);
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
+    } else if (error.status) {
+      // Backend errors
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      if (error.error && typeof error.error === 'object') {
+        errorMessage += `\nDetails: ${JSON.stringify(error.error)}`;
+      } else if (error.error) {
+        errorMessage += `\nDetails: ${error.error}`;
+      }
+    } else {
+      errorMessage = `Error: ${error.message}`;
+    }
+    return throwError(() => new Error(errorMessage));
+  }
 }
