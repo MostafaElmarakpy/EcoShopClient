@@ -2,9 +2,12 @@
 export interface IUser {
     id: number;
     userName: string;
+ 
     email: string;
     token: string;
     refreshToken: string;
+    profilePictureUrl?: string;
+    roles?: string[]; 
     // Add other user properties as needed
 }
 export interface IRegister {
@@ -18,3 +21,4 @@ export interface ILogin {
   email: string;
   password: string;
 }
+
