@@ -1,0 +1,9 @@
+.navbar-brand {
+  font-weight: 700;
+}
+.navbar .fa-user {
+  font-size: 16px;
+}
+.nav-link {
+  cursor: pointer;
+}
