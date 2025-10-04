@@ -1,8 +1,6 @@
 
 export const environment = {
     production: false,
-    // apiUrl: 'http://localhost:8080/api',
-    apiUrl: 'https://e-commerce-serverside.vercel.app',
-    baseUrlProducts : 'https://fakestoreapi.in/api/products'
-
+    apiUrl: 'http://localhost:5039/api',
+    // apiUrl1:  'http://localhost:5104/api'
 };
