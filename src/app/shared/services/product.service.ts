@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/products`;
   private productDeletionSource = new BehaviorSubject<number | null>(null);
   productDeletion$ = this.productDeletionSource.asObservable();
 
@@ -25,15 +25,15 @@ export class ProductService {
     );
   }
   getProductById(id: string): Observable<IProduct> {
-  return this.http.get<IProduct>(`${environment.apiUrl}/products/${id}`);
+  return this.http.get<IProduct>(`${environment.apiUrl}/${id}`);
 }
 
 updateProduct(id: string, product: Partial<IProduct>): Observable<IProduct> {
-  return this.http.put<IProduct>(`${environment.apiUrl}/products/${id}`, product);
+  return this.http.put<IProduct>(`${environment.apiUrl}/${id}`, product);
 }
 
 deleteProduct(id: string): Observable<void> {
-  return this.http.delete<void>(`${environment.apiUrl}/products/${id}`);
+  return this.http.delete<void>(`${environment.apiUrl}/${id}`);
 }
 
   // getProductById(id: number): Observable<IProduct> {
