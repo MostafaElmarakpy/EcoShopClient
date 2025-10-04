@@ -5,13 +5,18 @@
       <p class="muted">Sign in to continue to <strong>SmartCertify</strong></p>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-grid">
-        <label>
-          <span>Username</span>
-          <input formControlName="userName" type="text" placeholder="Enter your username" />
-        </label>
-        @if (loginForm.get('userName')?.touched && loginForm.get('userName')?.invalid) {
-          <div class="error">Username is required.</div>
+    <label>
+      <span>Email</span>
+      <input formControlName="email" type="email" placeholder="Enter your email" />
+    </label>
+
+      @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors) {
+        @if (loginForm.get('email')?.errors?.['required']) {
+          <div class="error">Email is required.</div>
+        } @else if (loginForm.get('email')?.errors?.['email']) {
+          <div class="error">Enter a valid email address.</div>
         }
+      }
 
         <label>
           <span>Password</span>
