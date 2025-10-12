@@ -107,7 +107,6 @@ signup(registerData: IRegister): Observable<IUser> {
     return localStorage.getItem('token');
   }
 
-
   storeTokens(response: { accessToken: string, refreshToken: string }) {
     localStorage.setItem('accessToken', response.accessToken);
     localStorage.setItem('refreshToken', response.refreshToken);
