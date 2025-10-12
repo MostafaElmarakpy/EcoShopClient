@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Products (Admin)</h4>
+  <button class="btn btn-success" (click)="openCreate()">Add Product</button>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr><th>ID</th><th>Name</th><th>Code</th><th>Price</th><th>Images</th><th>Action</th></tr>
+  </thead>
+  <tbody>
+     @for (p of productList; track p.id) {
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.productCode }}</td>
+        <td>{{ p.price | number:'1.2-2' }}</td>
+        <td>
+          @for (img of p.imageUrls; track $index) {
+            <img [src]="img" alt="Product Image" style="width:50px; height:auto; margin-right:5px;" />
+          }
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary me-2" (click)="openEdit(p)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="confirmDelete(p.id)">Delete</button>
+        </td>
+      </tr>
+    } @empty {
+      <tr><td colspan="6" class="text-center">No products found</td></tr>
+    }
+  </tbody>
+</table>

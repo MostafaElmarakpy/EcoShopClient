@@ -1,0 +1,28 @@
+<div class="admin-shell d-flex">
+  <aside class="admin-sidebar p-3">
+    <h5>Admin</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a routerLink="/admin/products" class="nav-link">Products</a></li>
+      <li class="nav-item"><a routerLink="/admin/users" class="nav-link">Users</a></li>
+      <li class="nav-item"><a routerLink="/" class="nav-link">Switch to Store</a></li>
+    </ul>
+  </aside>
+
+  <div class="admin-main flex-grow-1">
+    <header class="admin-header d-flex justify-content-between align-items-center p-2">
+      <div>
+        <!-- <button class="btn btn-outline-secondary d-md-none" (click)="/* open mobile sidebar */">☰</button> -->
+        <button class="btn btn-outline-secondary d-md-none" (click)=" toggleSidebar()">☰</button>
+        <span class="ms-2">EcoShop — Admin</span>
+      </div>
+      <div>
+        <span class="me-3">{{ userName }}</span>
+        <button class="btn btn-sm btn-outline-danger">Logout</button>
+      </div>
+    </header>
+
+    <main class="p-3">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
