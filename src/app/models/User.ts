@@ -4,9 +4,9 @@ export interface IUser {
     userName: string;
  
     email: string;
-    token: string;
-    refreshToken: string;
-    profilePictureUrl?: string;
+    token?: string;
+    isActive?: boolean;
+    refreshToken?: string;
     roles?: string[]; 
     // Add other user properties as needed
 }

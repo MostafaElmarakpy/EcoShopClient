@@ -7,4 +7,7 @@ export interface IProduct {
   minimumQuantity: number;
   discountRate: number;
   imagePath: string;
+  imageUrls: string[];
+categoryId: number
+
 }
