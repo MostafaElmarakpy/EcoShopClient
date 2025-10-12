@@ -27,6 +27,14 @@ export const routes: Routes = [
       },
     ],
   },
+   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    // يمكنك إضافة canLoad: [AdminGuard] لاحقاً
+    // canLoad: [AdminGuard] // يمكنك إضافة canLoad: [AdminGuard] لاحقاً
+    // canActivate: [authGuard],  // Protected
+    
+  },
   {
     path: 'home',
     loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
@@ -37,11 +45,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/product/products/products.component').then(c => c.ProductsComponent),
     // canActivate: [authسشئيريبلا Guard],
   },
-  {
-    path: 'products/:id',  // Details (see below)
-    loadComponent: () => import('./pages/product/detail-product/detail-product.component').then(c => c.DetailProductComponent),
-    // canActivate: [authGuard],
-  },
+
   {
     path: 'about',
     loadComponent: () => import('./components/about/about.component').then(c => c.AboutComponent),
