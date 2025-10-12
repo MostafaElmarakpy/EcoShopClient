@@ -1,32 +1,93 @@
-<section class="hero">
-  <div class="container">
-    <h1>Welcome to Smart Shop</h1>
-    <p class="subtitle">Discover curated products and great deals</p>
-  </div>
-</section>
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Welcome to EcoShop</h1>
+      <p class="hero-subtitle">Discover Amazing Products at Great Prices</p>
+      <a [routerLink]="['/products']" class="cta-button">Shop Now</a>
+    </div>
+  </section>
 
-  <div class="py-8">
-    <h2 class="text-3xl font-bold text-left pl-20 mb-10">Featured Products</h2>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-      >
-      @for (product of products; track $index) {
-        <div class="bg-white shadow rounded-lg overflow-hidden">
-          <img
-            [src]="product.imagePath"
-            alt="{{ product.name }}"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">{{ product.name }}</h3>
-            <p class="text-gray-600 mb-2">Category: {{ product.category }}</p>
-            <p class="card-text text-muted">{{ product.price }}</p>
-            
-          </div>
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-truck"></i>
+          <h3>Fast Delivery</h3>
+          <p>Free shipping on orders over $50</p>
         </div>
-      }
+        <div class="feature-card">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Secure Payments</h3>
+          <p>100% secure payment</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-headset"></i>
+          <h3>24/7 Support</h3>
+          <p>Dedicated support</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-undo"></i>
+          <h3>Easy Returns</h3>
+          <p>30-day return policy</p>
+        </div>
       </div>
     </div>
-  </div>
-        
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="products-section">
+    <div class="container">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="products-grid">
+        @for (product of featuredProducts; track product.id) {
+          <div class="product-card">
+            <div class="product-image">
+              <img [src]="getImageUrl(product.imagePath)" [alt]="product.name">
+            </div>
+            <div class="product-info">
+              <h3>{{ product.name }}</h3>
+              <p class="price">${{ product.price.toFixed(2) }}</p>
+              <a [routerLink]="['/product', product.id]" class="view-button">View Details</a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals Section -->
+  <section class="products-section bg-light">
+    <div class="container">
+      <h2 class="section-title">New Arrivals</h2>
+      <div class="products-grid">
+        @for (product of newArrivals; track product.id) {
+          <div class="product-card">
+            <div class="product-image">
+              <img [src]="getImageUrl(product.imagePath)" [alt]="product.name">
+              <span class="new-badge">New</span>
+            </div>
+            <div class="product-info">
+              <h3>{{ product.name }}</h3>
+              <p class="price">${{ product.price.toFixed(2) }}</p>
+              <a [routerLink]="['/product', product.id]" class="view-button">View Details</a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <h2>Stay Updated</h2>
+      <p>Subscribe to our newsletter for the latest products and offers</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Enter your email" class="email-input">
+        <button type="submit" class="subscribe-button">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</div>

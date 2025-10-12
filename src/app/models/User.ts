@@ -7,7 +7,7 @@ export interface IUser {
     token?: string;
     isActive?: boolean;
     refreshToken?: string;
-    roles?: string[]; 
+    roles?: string; 
     // Add other user properties as needed
 }
 export interface IRegister {

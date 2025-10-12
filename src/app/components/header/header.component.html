@@ -49,6 +49,16 @@
           <a class="nav-link" [routerLink]="['/contact']" routerLinkActive="active">Contact Us</a>
         </li>
 
+       @if (isAdmin) {
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" 
+               data-bs-toggle="dropdown">Admin</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="['/admin/products']">Manage Products</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/admin/users']">Manage Users</a></li>
+            </ul>
+          </li>
+        }
       </ul>
 
       <!-- Login/Logout / profile -->

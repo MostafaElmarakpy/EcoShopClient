@@ -29,10 +29,13 @@ export class ProductsComponent {
       this.filteredProducts = data;
     });
   }
-  getImageUrl(imagePath: string): string {
-    return `${this.baseUrl}/Products/Images/${encodeURIComponent(
-      imagePath
-    )}`;
+  getImageUrl(imagePath: string | null): string {
+    if (!imagePath) {
+      return 'assets/images/iPhone.jpg'; // Fallback image
+    }
+    return 'assets/images/iPhone.jpg'; // Fallback image
+    // Make sure we're using the full API URL and the correct path
+    // return `${this.baseUrl}/api/Products/Images/${encodeURIComponent(imagePath)}`;
   }
   viewDetails(productId: number) {
     this.router.navigate(['/product', productId]);

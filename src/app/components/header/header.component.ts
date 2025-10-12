@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchControl = new FormControl('');
   // local state used with @if blocks
   user: IUser| null = null;
-  isAdmin: boolean = false;
+  isAdmin: boolean = true;
   loginDisplay = false;
   profilePictureUrl = '';
  
@@ -37,6 +37,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
 
     // Subscribe to user data (user$) to pick roles/profile image
+    this.authService.user$.subscribe(user => {
+      this.isAdmin = user?.roles === 'Admin';
+    });
     this.authService.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe((user) => {
