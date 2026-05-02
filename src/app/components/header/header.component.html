@@ -1,9 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <!-- Brand/Logo -->
-    <a class="navbar-brand" [routerLink]="['/home']">SmartCertify</a>
+    <a class="navbar-brand" [routerLink]="['/home']">EcoShop</a>
 
-    <!-- Toggler for responsive design -->
     <button
       class="navbar-toggler"
       type="button"
@@ -16,43 +14,26 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/home']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            Home
-          </a>
+          <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
-
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/products']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            Products
-          </a>
+          <a class="nav-link" [routerLink]="['/products']" routerLinkActive="active">Products</a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/map']" routerLinkActive="active">Store Map</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/about']" routerLinkActive="active">About</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/contact']" routerLinkActive="active">Contact Us</a>
+          <a class="nav-link" [routerLink]="['/contact']" routerLinkActive="active">Contact</a>
         </li>
-
-       @if (isAdmin) {
+        @if (isAdmin) {
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" 
-               data-bs-toggle="dropdown">Admin</a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Admin</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" [routerLink]="['/admin/products']">Manage Products</a></li>
               <li><a class="dropdown-item" [routerLink]="['/admin/users']">Manage Users</a></li>
@@ -61,38 +42,29 @@
         }
       </ul>
 
-      <!-- Login/Logout / profile -->
-      <ul class="navbar-nav">
+      <form class="d-flex align-items-center gap-2 me-3" role="search">
+        <input class="form-control" type="search" placeholder="Search products" [formControl]="searchControl" aria-label="Search products" />
+        <button class="btn btn-outline-secondary" type="button" (click)="toggleTheme()">
+          {{ themeService.theme() === 'dark' ? 'Light' : 'Dark' }}
+        </button>
+      </form>
+
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item d-flex align-items-center">
-          <!-- Profile Picture -->
           @if (profilePictureUrl) {
-            <img
-              [src]="profilePictureUrl"
-              alt="Profile Picture"
-              (click)="editProfile()"
-              class="rounded-circle"
-              style="width:40px;height:40px;object-fit:cover;cursor:pointer;margin-right:8px;"
-            />
+            <img [src]="profilePictureUrl" alt="Profile Picture" (click)="editProfile()" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;cursor:pointer;margin-right:8px;" />
           } @else {
-            <!-- default avatar icon (shown only when logged in) -->
             @if (loginDisplay) {
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                alt="Profile Picture"
-                class="rounded-circle"
-                style="width:40px;height:40px;object-fit:cover;cursor:pointer;margin-right:8px;"
-              />
+              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Picture" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;cursor:pointer;margin-right:8px;" />
             }
           }
           @if (loginDisplay) {
             <a class="nav-link" (click)="logout()">Logout</a>
           }
-
           @if (!loginDisplay) {
-            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a>
-            <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">Register</a>
+            <a class="nav-link" [routerLink]="['/login']">Login</a>
+            <a class="nav-link" [routerLink]="['/register']">Register</a>
           }
-
         </li>
       </ul>
     </div>

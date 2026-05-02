@@ -1,13 +1,4 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { ProductsComponent } from './pages/product/products/products.component';
-import { LoginComponent } from './pages/login/login.component';
-import { SignupComponent } from './pages/signup/signup.component';
-import { authGuard } from './guards/auth-guard';
-
-
 
 export const routes: Routes = [
   {
@@ -18,45 +9,51 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () => import('./pages/login/login.component').then(c => c.LoginComponent),
-        // Public: No guard
       },
       {
-        path: 'register',  // Or 'signup'
+        path: 'register',
         loadComponent: () => import('./pages/signup/signup.component').then(c => c.SignupComponent),
-        // Public: No guard (changed from canDeactivate)
       },
     ],
   },
-   {
+  {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-    // يمكنك إضافة canLoad: [AdminGuard] لاحقاً
-    // canLoad: [AdminGuard] // يمكنك إضافة canLoad: [AdminGuard] لاحقاً
-    // canActivate: [authGuard],  // Protected
-    
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
   },
   {
     path: 'home',
     loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent),
-    // canActivate: [authGuard],  // Protected
   },
   {
-    path: 'products',  // List
+    path: 'products',
     loadComponent: () => import('./pages/product/products/products.component').then(c => c.ProductsComponent),
-    // canActivate: [authسشئيريبلا Guard],
   },
-
+  {
+    path: 'product/:id',
+    loadComponent: () => import('./pages/product/product-detail/product-detail.component').then(c => c.ProductDetailComponent),
+  },
+  {
+    path: 'search',
+    loadComponent: () => import('./pages/search/search.component').then(c => c.SearchComponent),
+  },
+  {
+    path: 'checkout',
+    loadComponent: () => import('./pages/checkout/checkout.component').then(c => c.CheckoutComponent),
+  },
+  {
+    path: 'orders',
+    loadComponent: () => import('./pages/order-history/order-history.component').then(c => c.OrderHistoryComponent),
+  },
+  {
+    path: 'map',
+    loadComponent: () => import('./pages/map/map.component').then(c => c.MapComponent),
+  },
   {
     path: 'about',
     loadComponent: () => import('./components/about/about.component').then(c => c.AboutComponent),
-    // Public
   },
   {
     path: 'contact',
     loadComponent: () => import('./components/contact/contact.component').then(c => c.ContactComponent),
   },
-
-   
-
-  { path: '**', redirectTo: 'home' },
 ];

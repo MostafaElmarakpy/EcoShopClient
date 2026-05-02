@@ -1,0 +1,34 @@
+<div class="container py-5">
+  <h2 class="mb-4">Order history</h2>
+
+  <div *ngIf="loading()" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+  <div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+
+  <div *ngIf="!loading() && orders().length === 0" class="alert alert-secondary">
+    You have no previous orders yet.
+  </div>
+
+  <div class="accordion" id="ordersAccordion" *ngIf="orders().length > 0">
+    <div class="accordion-item" *ngFor="let order of orders(); let idx = index">
+      <h2 class="accordion-header" id="heading{{ idx }}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + idx" aria-expanded="false" [attr.aria-controls]="'collapse' + idx">
+          {{ order.orderNumber }} • {{ order.date }} • {{ order.status }} • {{ order.total | currency }}
+        </button>
+      </h2>
+      <div [id]="'collapse' + idx" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + idx" data-bs-parent="#ordersAccordion">
+        <div class="accordion-body">
+          <ul class="list-group mb-3">
+            <li *ngFor="let item of order.items" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>{{ item.productName }} × {{ item.quantity }}</span>
+              <span>{{ item.price | currency }}</span>
+            </li>
+          </ul>
+          <p class="mb-0"><strong>Status:</strong> {{ order.status }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

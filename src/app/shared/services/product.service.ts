@@ -1,24 +1,59 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
 import { IProduct } from '../../models/product';
 import { environment } from '../../../environments/environment';
+
+export interface ProductQuery {
+  page?: number;
+  pageSize?: number;
+  search?: string;
+  category?: string;
+  sortBy?: 'name' | 'price' | 'category' | 'id';
+  sortDir?: 'asc' | 'desc';
+  minPrice?: number;
+  maxPrice?: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private apiUrl = `${environment.apiUrl}/products`;
-  private productDeletionSource = new BehaviorSubject<number | null>(null);
-  productDeletion$ = this.productDeletionSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.apiUrl).pipe(
-      catchError(error => {
+  getProducts(query?: ProductQuery): Observable<IProduct[]> {
+    let params = new HttpParams();
+
+    if (query?.page) {
+      params = params.set('page', query.page.toString());
+    }
+    if (query?.pageSize) {
+      params = params.set('pageSize', query.pageSize.toString());
+    }
+    if (query?.search) {
+      params = params.set('search', query.search);
+    }
+    if (query?.category) {
+      params = params.set('category', query.category);
+    }
+    if (query?.sortBy) {
+      params = params.set('sortBy', query.sortBy);
+    }
+    if (query?.sortDir) {
+      params = params.set('sortDir', query.sortDir);
+    }
+    if (query?.minPrice != null) {
+      params = params.set('minPrice', query.minPrice.toString());
+    }
+    if (query?.maxPrice != null) {
+      params = params.set('maxPrice', query.maxPrice.toString());
+    }
+
+    return this.http.get<IProduct[]>(this.apiUrl, { params }).pipe(
+      catchError((error: HttpErrorResponse) => {
         console.error('Error fetching products:', error);
         return throwError(() => new Error('Failed to fetch products'));
       })
@@ -64,7 +99,4 @@ export class ProductService {
     );
   }
 
-  notifyProductDeletion(productId: number) {
-    this.productDeletionSource.next(productId);
-  }
 }
