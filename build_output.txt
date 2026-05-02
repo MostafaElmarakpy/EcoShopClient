@@ -1,0 +1,71 @@
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[33mΓ¥»[39m Building...
+ΓùÅ [DEBUG] Failed to read directory "D:\\Software\\BackEnd\\ASP.NET API\\EcoShop\\EcoShopClient\\angular:script\\global:scripts": open D:\Software\BackEnd\ASP.NET API\EcoShop\EcoShopClient\angular:script: The system cannot find the file specified.
+
+
+  polyfills-OYTHSGNX.js  34.3kb
+
+Done in 37ms
+
+  scripts-SQ7W6IC7.js  78.5kb
+
+Done in 37ms
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+
+  chunk-SCPP7SWW.js  149.0kb
+  chunk-VSHKFNMW.js   87.7kb
+  chunk-GLDZOV5N.js   45.6kb
+  chunk-W45PS63J.js   35.7kb
+  chunk-T3P7W2FT.js   18.7kb
+  ...and 17 more output files...
+
+Done in 6184ms
+[32mΓ£ö[39m Building...
+[1mInitial chunk files[22m  [2m | [22m[1mNames[22m                   [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mstyles-4273CP53.css[39m  [2m | [22m[2mstyles[22m                  [2m | [22m[36m574.08 kB[39m[2m | [22m               [36m39.49 kB[39m
+[32mchunk-SCPP7SWW.js[39m    [2m | [22m[2m-[22m                       [2m | [22m[36m152.59 kB[39m[2m | [22m               [36m44.99 kB[39m
+[32mchunk-VSHKFNMW.js[39m    [2m | [22m[2m-[22m                       [2m | [22m [36m89.84 kB[39m[2m | [22m               [36m22.66 kB[39m
+[32mscripts-SQ7W6IC7.js[39m  [2m | [22m[2mscripts[22m                 [2m | [22m [36m80.42 kB[39m[2m | [22m               [36m21.62 kB[39m
+[32mchunk-GLDZOV5N.js[39m    [2m | [22m[2m-[22m                       [2m | [22m [36m46.67 kB[39m[2m | [22m                [36m9.26 kB[39m
+[32mpolyfills-OYTHSGNX.js[39m[2m | [22m[2mpolyfills[22m               [2m | [22m [36m35.10 kB[39m[2m | [22m               [36m11.54 kB[39m
+[32mchunk-T3P7W2FT.js[39m    [2m | [22m[2m-[22m                       [2m | [22m [36m19.20 kB[39m[2m | [22m                [36m5.75 kB[39m
+[32mchunk-LHECJWZL.js[39m    [2m | [22m[2m-[22m                       [2m | [22m [36m15.71 kB[39m[2m | [22m                [36m4.66 kB[39m
+[32mmain-2XR5FG24.js[39m     [2m | [22m[2mmain[22m                    [2m | [22m [36m10.06 kB[39m[2m | [22m                [36m3.16 kB[39m
+[32mchunk-OLKJA4XG.js[39m    [2m | [22m[2m-[22m                       [2m | [22m  [36m2.42 kB[39m[2m | [22m              [36m830 bytes[39m
+[32mchunk-3ZFP6NCY.js[39m    [2m | [22m[2m-[22m                       [2m | [22m [36m73 bytes[39m[2m | [22m               [36m73 bytes[39m
+
+[1m [22m                    [2m | [22m[1mInitial total[22m           [2m | [22m  [1m[93m1.03 MB[39m[22m[2m | [22m              [1m164.02 kB[22m
+
+[1mLazy chunk files[22m     [2m | [22m[1mNames[22m                   [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-W45PS63J.js[39m    [2m | [22m[2madmin-module[22m            [2m | [22m [36m36.53 kB[39m[2m | [22m                [36m8.91 kB[39m
+[32mchunk-JYIXKCGS.js[39m    [2m | [22m[2mhome-component[22m          [2m | [22m  [36m7.54 kB[39m[2m | [22m                [36m2.17 kB[39m
+[32mchunk-SFELHKX4.js[39m    [2m | [22m[2msignup-component[22m        [2m | [22m  [36m7.27 kB[39m[2m | [22m                [36m2.28 kB[39m
+[32mchunk-H4L4PSHV.js[39m    [2m | [22m[2mproducts-component[22m      [2m | [22m  [36m6.75 kB[39m[2m | [22m                [36m2.35 kB[39m
+[32mchunk-23UR276C.js[39m    [2m | [22m[2mcheckout-component[22m      [2m | [22m  [36m6.26 kB[39m[2m | [22m                [36m2.17 kB[39m
+[32mchunk-KDEACEG4.js[39m    [2m | [22m[2mlogin-component[22m         [2m | [22m  [36m5.94 kB[39m[2m | [22m                [36m1.99 kB[39m
+[32mchunk-4LYSPLRC.js[39m    [2m | [22m[2mcontact-component[22m       [2m | [22m  [36m4.35 kB[39m[2m | [22m                [36m1.35 kB[39m
+[32mchunk-IIR54I67.js[39m    [2m | [22m[2mabout-component[22m         [2m | [22m  [36m4.24 kB[39m[2m | [22m                [36m1.28 kB[39m
+[32mchunk-6U2IOIXT.js[39m    [2m | [22m[2morder-history-component[22m [2m | [22m  [36m3.46 kB[39m[2m | [22m                [36m1.34 kB[39m
+[32mchunk-7AVNSNKH.js[39m    [2m | [22m[2mproduct-detail-component[22m[2m | [22m  [36m3.17 kB[39m[2m | [22m                [36m1.33 kB[39m
+[32mchunk-XBZSY26U.js[39m    [2m | [22m[2msearch-component[22m        [2m | [22m  [36m2.71 kB[39m[2m | [22m                [36m1.14 kB[39m
+[32mchunk-WLVHNIAO.js[39m    [2m | [22m[2mmap-component[22m           [2m | [22m  [36m1.84 kB[39m[2m | [22m              [36m855 bytes[39m
+[32mchunk-XVA3SQOG.js[39m    [2m | [22m[2m-[22m                       [2m | [22m  [36m1.82 kB[39m[2m | [22m              [36m605 bytes[39m
+[32mchunk-SX3T65DV.js[39m    [2m | [22m[2mauth-layout-component[22m   [2m | [22m[36m400 bytes[39m[2m | [22m              [36m400 bytes[39m
+
+Application bundle generation complete. [7.373 seconds]
+
+Γû▓ [WARNING] bundle initial exceeded maximum budget. Budget 600.00 kB was not met by 426.16 kB with a total of 1.03 MB.
+
+
+Γû▓ [WARNING] 4 rules skipped due to selector errors:
+  .form-floating>~label -> Did not expect successive traversals.
+  .btn-group>+.btn -> Did not expect successive traversals.
+  .btn-group>+.btn -> Did not expect successive traversals.
+  .btn-group-vertical>+.btn -> Did not expect successive traversals.
+
+
+Output location: D:\Software\BackEnd\ASP.NET API\EcoShop\EcoShopClient\dist\eco-shop-client
+

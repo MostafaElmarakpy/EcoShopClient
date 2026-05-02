@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-    this.productService.getAllProducts().subscribe((products) => {
+  ngOnInit(): void {
+    this.productService.getAllProducts().subscribe((products: IProduct[]) => {
       // Get featured products (highest priced products)
       this.featuredProducts = [...products]
         .sort((a, b) => b.price - a.price)

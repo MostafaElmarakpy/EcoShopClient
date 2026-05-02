@@ -28,10 +28,10 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  loadProducts() {
+  loadProducts(): void {
     this.productService.getAllProducts().pipe(takeUntil(this.destroy$)).subscribe({
-      next: res => this.productList = res,
-      error: err => console.error(err)
+      next: (res: IProduct[]) => this.productList = res,
+      error: (err: unknown) => console.error(err)
     });
   }
 

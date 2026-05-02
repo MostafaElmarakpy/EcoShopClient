@@ -60,6 +60,14 @@ export class ProductService {
     );
   }
 
+  getAllProducts(): Observable<IProduct[]> {
+    return this.getProducts();
+  }
+
+  searchProducts(term: string): Observable<IProduct[]> {
+    return this.getProducts({ search: term });
+  }
+
   getProductById(id: number): Observable<IProduct> {
     return this.http.get<IProduct>(`${this.apiUrl}/${id}`).pipe(
       catchError(error => {

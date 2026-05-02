@@ -42,7 +42,7 @@ export class ProductDetailComponent {
     });
   }
 
-  getImageUrl(imagePath: string | null): string {
+  getImageUrl(imagePath: string | null | undefined): string {
     if (!imagePath) {
       return 'assets/images/no-image.png';
     }

@@ -37,12 +37,12 @@ export class SearchComponent {
     this.loading.set(true);
     this.error.set('');
     this.productService.searchProducts(term).subscribe({
-      next: (products) => {
+      next: (products: IProduct[]) => {
         this.results.set(products);
         this.loading.set(false);
       },
-      error: (err) => {
-        this.error.set(err?.message ?? 'Search failed');
+      error: (err: unknown) => {
+        this.error.set((err as Error)?.message ?? 'Search failed');
         this.loading.set(false);
       }
     });

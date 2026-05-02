@@ -13,7 +13,7 @@ import { CartService } from '../../shared/services/cart.service';
 export class CheckoutComponent {
   step = signal(1);
   checkoutForm: FormGroup;
-  items = this.cartService.cartItems;
+  items = computed(() => this.cartService.cartItems());
   orderTotal = computed(() => this.cartService.totalAmount);
 
   constructor(
