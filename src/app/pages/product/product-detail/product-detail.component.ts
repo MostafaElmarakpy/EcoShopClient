@@ -2,6 +2,8 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../../shared/services/product.service';
+import { CartService } from '../../../shared/services/cart.service';
+import { SeoService } from '../../../shared/services/seo.service';
 import { IProduct } from '../../../models/product';
 import { environment } from '../../../../environments/environment';
 
@@ -18,6 +20,8 @@ export class ProductDetailComponent {
 
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
+    private seoService: SeoService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -34,12 +38,31 @@ export class ProductDetailComponent {
       next: (product) => {
         this.product.set(product);
         this.loading.set(false);
+        this.seoService.updateSeo({
+          title: product.name,
+          description: `Buy ${product.name} for $${product.price}. Category: ${product.category}.`,
+          ogType: 'product',
+          ogImage: this.getImageUrl(product.imagePath),
+        });
       },
       error: (err) => {
         this.error.set(err?.message ?? 'Unable to load product details.');
         this.loading.set(false);
       }
     });
+  }
+
+  addToCart(): void {
+    const p = this.product();
+    if (p) {
+      this.cartService.addToCart({
+        productId: p.id,
+        name: p.name,
+        price: p.price,
+        quantity: 1,
+        imagePath: p.imagePath,
+      });
+    }
   }
 
   getImageUrl(imagePath: string | null | undefined): string {

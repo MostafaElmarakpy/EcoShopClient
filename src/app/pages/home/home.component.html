@@ -44,7 +44,7 @@
         @for (product of featuredProducts; track product.id) {
           <div class="product-card">
             <div class="product-image">
-              <img [src]="getImageUrl(product.imagePath)" [alt]="product.name">
+              <img [src]="getImageUrl(product.imagePath)" [alt]="product.name" loading="lazy">
             </div>
             <div class="product-info">
               <h3>{{ product.name }}</h3>
@@ -65,7 +65,7 @@
         @for (product of newArrivals; track product.id) {
           <div class="product-card">
             <div class="product-image">
-              <img [src]="getImageUrl(product.imagePath)" [alt]="product.name">
+              <img [src]="getImageUrl(product.imagePath)" [alt]="product.name" loading="lazy">
               <span class="new-badge">New</span>
             </div>
             <div class="product-info">
