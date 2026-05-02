@@ -134,6 +134,7 @@ export class ProductsComponent {
     if (!imagePath) {
       return 'assets/images/no-image.png';
     }
-    return `${this.baseUrl}/api/Products/Images/${encodeURIComponent(imagePath)}`;
+    const baseHost = this.baseUrl.replace('/api', '');
+    return `${baseHost}${imagePath}`;
   }
 }

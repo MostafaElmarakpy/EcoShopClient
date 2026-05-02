@@ -6,6 +6,12 @@
 /out-tsc
 /bazel-out
 
+# AI generated reports
+docs/
+
+AI_UPDATE_REPORT.md
+AI_NEXT_STEPS.md
+
 # Node
 /node_modules
 npm-debug.log

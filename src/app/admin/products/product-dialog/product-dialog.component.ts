@@ -43,7 +43,7 @@ export class ProductDialogComponent {
         price: this.product.price,
         categoryId: this.product.categoryId
       });
-      this.existingImages = this.product.imageUrls ? [...this.product.imageUrls] : [];
+      this.existingImages = this.product.imagePath ? [this.product.imagePath] : [];
     }
   }
 

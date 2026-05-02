@@ -19,6 +19,9 @@ export class RoleService {
 
   private determineUserRole(user: IUser | null): 'admin' | 'customer' | null {
     if (!user) return null;
-    return user.roles?.includes('Admin') ? 'admin' : 'customer';
+    if (Array.isArray(user.roles)) {
+      return user.roles.includes('Admin') ? 'admin' : 'customer';
+    }
+    return 'customer';
   }
 }

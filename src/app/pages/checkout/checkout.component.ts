@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CartService } from '../../shared/services/cart.service';
+import { OrderService, CreateOrderRequest } from '../../shared/services/order.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-checkout',
@@ -15,10 +17,14 @@ export class CheckoutComponent {
   checkoutForm: FormGroup;
   items = computed(() => this.cartService.cartItems());
   orderTotal = computed(() => this.cartService.totalAmount);
+  submitting = signal(false);
+  orderError = signal('');
 
   constructor(
     private fb: FormBuilder,
     public cartService: CartService,
+    private orderService: OrderService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -36,7 +42,6 @@ export class CheckoutComponent {
     this.route.queryParamMap.subscribe(params => {
       const productId = Number(params.get('productId'));
       if (productId && this.cartService.cartItems().length === 0) {
-        // If product ID is provided but cart is empty, navigate to the product detail page.
         this.router.navigate(['/product', productId]);
       }
     });
@@ -59,7 +64,37 @@ export class CheckoutComponent {
       this.checkoutForm.markAllAsTouched();
       return;
     }
-    this.cartService.clearCart();
-    this.router.navigate(['/orders']);
+
+    this.submitting.set(true);
+    this.orderError.set('');
+
+    const formValue = this.checkoutForm.value;
+    const order: CreateOrderRequest = {
+      items: this.items().map(i => ({
+        productId: i.productId,
+        quantity: i.quantity,
+        price: i.price,
+      })),
+      shippingAddress: {
+        fullName: formValue.fullName,
+        address: formValue.address,
+        city: formValue.city,
+        postalCode: formValue.postalCode,
+      },
+      paymentMethod: formValue.paymentMethod,
+    };
+
+    this.orderService.createOrder(order).subscribe({
+      next: () => {
+        this.cartService.clearCart();
+        this.submitting.set(false);
+        this.notificationService.success('Order placed successfully!');
+        this.router.navigate(['/orders']);
+      },
+      error: (err) => {
+        this.submitting.set(false);
+        this.orderError.set(err?.message ?? 'Failed to place order. Please try again.');
+      }
+    });
   }
 }

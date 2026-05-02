@@ -7,15 +7,15 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class CategoryServices {
-  baseUrl = environment.apiUrl + '/Category';
-  proByCat = `/ProductByCategory?`;
-  pagination = `page=1&pageSize=100`;
+  private baseUrl = environment.apiUrl + '/categories';
+
   constructor(private http: HttpClient) {}
 
   getAllCategories() {
     return this.http.get<Category[]>(this.baseUrl);
   }
+
   getProductsByCat(id: number) {
-    return this.http.get<any>(this.baseUrl + this.proByCat + `categoryId=${id}&` + this.pagination);
+    return this.http.get<any>(`${this.baseUrl}/ProductByCategory?categoryId=${id}&page=1&pageSize=100`);
   }
 }

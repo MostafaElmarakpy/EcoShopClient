@@ -44,7 +44,8 @@ export class HomeComponent implements OnInit {
     if (!imagePath) {
       return 'assets/images/no-image.png';
     }
-    return 'assets/images/iPhone.jpg';
-    // return `${this.apiUrl}/api/Products/Images/${encodeURIComponent(imagePath)}`;
+    // Static files served from backend wwwroot
+    const baseHost = this.apiUrl.replace('/api', '');
+    return `${baseHost}${imagePath}`;
   }
 }

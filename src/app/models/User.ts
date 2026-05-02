@@ -1,15 +1,14 @@
-
 export interface IUser {
-    id: number;
+    id: string;
+    displayName: string;
     userName: string;
- 
     email: string;
     token?: string;
     isActive?: boolean;
     refreshToken?: string;
-    roles?: string; 
-    // Add other user properties as needed
+    roles?: string[];
 }
+
 export interface IRegister {
   name: string;
   email: string;

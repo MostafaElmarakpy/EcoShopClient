@@ -50,7 +50,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
     ref.closed.subscribe(result => { if (result === 'saved') this.loadUsers(); });
   }
 
-  confirmDelete(id: number) {
+  confirmDelete(id: string) {
     const ref = this.modalService.open(DialogBoxComponent, { centered: true });
     ref.componentInstance.title = 'Confirm Delete';
     ref.componentInstance.message = 'Are you sure you want to delete this user?';

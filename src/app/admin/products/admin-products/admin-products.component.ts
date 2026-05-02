@@ -5,6 +5,7 @@ import { IProduct } from '../../../models/product';
 import { ProductService } from '../../../shared/services/product.service';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 import { DialogBoxComponent } from '../../../shared/dialog-box/dialog-box.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-products',
@@ -60,5 +61,10 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
         });
       }
     }).catch(()=>{});
+  }
+
+  getImageUrl(imagePath: string): string {
+    const baseHost = environment.apiUrl.replace('/api', '');
+    return `${baseHost}${imagePath}`;
   }
 }

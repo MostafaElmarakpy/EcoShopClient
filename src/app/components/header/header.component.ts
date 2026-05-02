@@ -48,10 +48,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           (user as any)?.profilePictureUrl ||
           '';
 
-        if ((user as any)?.roles && Array.isArray((user as any).roles)) {
-          this.isAdmin = (user as any).roles.includes('Admin');
-        } else if ((user as any)?.role && typeof (user as any).role === 'string') {
-          this.isAdmin = (user as any).role === 'Admin';
+        if (user?.roles && Array.isArray(user.roles)) {
+          this.isAdmin = user.roles.includes('Admin');
         } else {
           this.isAdmin = false;
         }

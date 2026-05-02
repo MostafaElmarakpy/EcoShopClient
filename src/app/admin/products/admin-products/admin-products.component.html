@@ -15,8 +15,8 @@
         <td>{{ p.productCode }}</td>
         <td>{{ p.price | number:'1.2-2' }}</td>
         <td>
-          @for (img of p.imageUrls; track $index) {
-            <img [src]="img" alt="Product Image" style="width:50px; height:auto; margin-right:5px;" />
+          @if (p.imagePath) {
+            <img [src]="getImageUrl(p.imagePath)" alt="Product Image" style="width:50px; height:auto; margin-right:5px;" />
           }
         </td>
         <td>

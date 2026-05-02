@@ -69,7 +69,8 @@ export class ProductDetailComponent {
     if (!imagePath) {
       return 'assets/images/no-image.png';
     }
-    return `${environment.apiUrl}/api/Products/Images/${encodeURIComponent(imagePath)}`;
+    const baseHost = environment.apiUrl.replace('/api', '');
+    return `${baseHost}${imagePath}`;
   }
 
   goBack(): void {
